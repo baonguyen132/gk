@@ -1,30 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:gk/theme/theme.dart';
 
-class WidgetButtonCustom extends StatefulWidget {
-  Function () handle ;
+class ProductButton extends StatefulWidget {
+  Color color ;
   String text ;
-  WidgetButtonCustom({super.key , required this.handle , required this.text});
+  Function () hanlde  ;
+
+  ProductButton({super.key , required this.color , required this.text , required this.hanlde});
 
   @override
-  State<WidgetButtonCustom> createState() => _WidgetButtonCustomState();
+  State<ProductButton> createState() => _ProductButtonState();
 }
 
-class _WidgetButtonCustomState extends State<WidgetButtonCustom> {
+class _ProductButtonState extends State<ProductButton> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        widget.handle() ;
+        widget.hanlde() ;
       },
       child: MouseRegion(
         cursor: SystemMouseCursors.click,
         child: Container(
           margin: EdgeInsets.all(5),
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          width: 200,
           decoration: BoxDecoration(
-              color: Colors.blue,
+              color: widget.color,
               borderRadius: BorderRadius.all(Radius.circular(8)),
               boxShadow: [
                 BoxShadow(
@@ -39,12 +38,11 @@ class _WidgetButtonCustomState extends State<WidgetButtonCustom> {
           alignment: Alignment.center,
           child: Text(
             widget.text,
-            textAlign: TextAlign.center,
-            style:  TextStyle(
-              fontSize: 18,
-              color: Colors.white,
-              decoration: TextDecoration.none,
-              fontWeight: FontWeight.w100
+            style: const TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.bold, // Chữ đậm hơn
+                color: Colors.black87,
+                decoration: TextDecoration.none
             ),
           ),
         ),

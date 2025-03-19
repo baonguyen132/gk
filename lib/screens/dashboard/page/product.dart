@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gk/screens/dashboard/page/widget/product/product_item.dart';
-import 'package:gk/theme/theme.dart';
+import 'package:gk/screens/dashboard/page/widget/product/widget_form_insert_product.dart';
+import 'package:gk/screens/dashboard/page/widget/product/widget_list_product.dart';
 
 class Product extends StatefulWidget {
   const Product({super.key});
@@ -10,49 +10,35 @@ class Product extends StatefulWidget {
 }
 
 class _ProductState extends State<Product> {
+  bool frame = true ;
+
+  Widget getFrame() {
+    if(frame) {
+      return WidgetListProduct();
+    }
+    else {
+      return WidgetFormInsertProduct();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        Container(
-          width: MediaQuery.of(context).size.width,
-          height: 80,
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.mainCard,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.2), // Màu bóng
-                blurRadius: 6, // Độ mờ bóng
-                spreadRadius: 2, // Độ lan của bóng
-                offset: Offset(0, 4), // Dịch bóng xuống dưới
-              ),
-            ],
-          ),
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(10),
+          child: getFrame(),
         ),
-        Container(
-          child: Wrap(
-            alignment: MediaQuery.of(context).size.width > 500 ? WrapAlignment.spaceAround : WrapAlignment.center,
-            children: [
-              ProductItem(),
-              ProductItem(),
-              ProductItem(),
-              ProductItem(),
-              ProductItem(),
-              ProductItem(),
-              ProductItem(),
-              ProductItem(),
-              ProductItem(),
-              ProductItem(),
-              ProductItem(),
-              ProductItem(),
-            ],
-          ),
-        ),
-        Container(
-          width: MediaQuery.of(context).size.width,
-          height: 100,
-        )
-      ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            frame = !frame ;
+          });
+        },
+        child: Icon(frame ? Icons.add : Icons.arrow_back),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100),),
+      ),
     );
   }
 }

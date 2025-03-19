@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:gk/data/ConstraintData.dart';
 
 class ProductItemImage extends StatefulWidget {
   double width ;
   double height ;
   BorderRadius borderRadius ;
-  ProductItemImage({super.key , required this.width , required this.height , required this.borderRadius});
+
+  String urlImage ;
+  ProductItemImage({super.key , required this.width , required this.height , required this.borderRadius , required this.urlImage});
 
   @override
   State<ProductItemImage> createState() => _ProductItemImageState();
@@ -19,8 +22,7 @@ class _ProductItemImageState extends State<ProductItemImage> {
       decoration: BoxDecoration(
         borderRadius: widget.borderRadius,
         image: DecorationImage(
-          image: NetworkImage(
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-hhlczgZCexRKviMmym1IW_Xngpb6ec3BWQ&s"),
+          image: NetworkImage("${location}/${widget.urlImage}"),
           fit: BoxFit.cover,
         ),
       ),

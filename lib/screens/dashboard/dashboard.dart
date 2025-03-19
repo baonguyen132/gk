@@ -6,7 +6,6 @@ import '../../util/responsive.dart';
 import 'dashboard_desktop.dart';
 import 'dashboard_mobile.dart';
 import 'dashboard_tablet.dart';
-import 'page/history.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -21,13 +20,8 @@ class _DashboardState extends State<Dashboard> {
     if(mainPage == 6) {
       return Container() ;
     }
-    else if(mainPage == 2) {
-      return Product() ;
-    }
-    else if (mainPage == 4) {
-      return Container() ;
-    }else if(mainPage ==3){
-      return History();
+    else if(mainPage == 3){
+      return Product();
     }
     return Container() ;
   }

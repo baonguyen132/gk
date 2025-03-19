@@ -1,9 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:gk/model/ProductModal.dart';
 import 'package:gk/screens/dashboard/page/widget/product/product_item_image.dart';
 import 'package:gk/screens/dashboard/page/widget/product/product_item_infor.dart';
 
 class ProductItem extends StatefulWidget {
-  ProductItem({super.key});
+  final DocumentSnapshot product;
+  Function (String id) handleDelete ;
+  Function (ProductModal product) handleUpdate ;
+
+  ProductItem({super.key , required this.product , required this.handleDelete , required this.handleUpdate});
 
   @override
   State<ProductItem> createState() => _ProductItemState();
@@ -12,9 +18,11 @@ class ProductItem extends StatefulWidget {
 class _ProductItemState extends State<ProductItem> {
   @override
   Widget build(BuildContext context) {
+    var data = widget.product.data() as Map<String, dynamic>;
+    var id = widget.product.id ;
     return MediaQuery.of(context).size.width > 1000 ?
     Container(
-      height: 240,
+      height: 280,
       width: 360,
       margin: EdgeInsets.all(10),
       decoration: BoxDecoration(
@@ -33,9 +41,21 @@ class _ProductItemState extends State<ProductItem> {
               borderRadius: const  BorderRadius.only(
                 topLeft: Radius.circular(8),
                 bottomLeft: Radius.circular(8),
-              )
+
+              ),
+            urlImage: data["hinhanh"],
           ),
-          ProductItemInfor(),
+          ProductItemInfor(
+            tensp: data["tensp"],
+            loaisp: data["loaisp"],
+            gia: data["gia"].toString(),
+            handleUpdate: () {
+              widget.handleUpdate(ProductModal(id: widget.product.id, tensp: data["tensp"], loaisp: data["loaisp"], gia: data["gia"], hinhanh: data["hinhanh"]));
+            },
+            handleDelete: () {
+              widget.handleDelete(id) ;
+            },
+          ),
 
         ],
       ),
@@ -45,7 +65,7 @@ class _ProductItemState extends State<ProductItem> {
     :
 
     Container(
-      height: 480,
+      height: 520,
       width: 330,
       margin: EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -64,8 +84,19 @@ class _ProductItemState extends State<ProductItem> {
               topLeft: Radius.circular(8),
               topRight: Radius.circular(8),
             ),
+            urlImage: data["hinhanh"],
           ),
-          ProductItemInfor()
+          ProductItemInfor(
+            tensp: data["tensp"],
+            loaisp: data["loaisp"],
+            gia: data["gia"].toString(),
+            handleUpdate: () {
+              widget.handleUpdate(ProductModal(id: widget.product.id, tensp: data["tensp"], loaisp: data["loaisp"], gia: data["gia"], hinhanh: data["hinhanh"]));
+            },
+            handleDelete: () {
+              widget.handleDelete(id) ;
+            },
+          )
         ],
       ),
     );

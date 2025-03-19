@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
 import '../data/ConstraintData.dart';
 
@@ -13,11 +14,7 @@ class UserModel {
   String email;
   String password;
   String cccd;
-  String dob;
-  String gender;
-  String address;
-  String token;
-  String? status ;
+
 
   UserModel({
     this.id ,
@@ -25,11 +22,7 @@ class UserModel {
     required this.email,
     required this.password,
     required this.cccd,
-    required this.dob,
-    required this.gender,
-    required this.address,
-    this.status ,
-    this.token = "some_token",
+
   });
 
   // ✅ Chuyển JSON thành Object
@@ -40,11 +33,7 @@ class UserModel {
       email: json[2].toString() ,
       password: json[3].toString(),
       cccd: json[5].toString(),
-      dob: (json[6]),
-      gender: json[7].toString() ,
-      address: json[9].toString() ,
-      token: json[10].toString() ,
-      status: json[4].toString()
+
     );
   }
   factory UserModel.fromJsons(Map<String, dynamic> json) {
@@ -54,11 +43,6 @@ class UserModel {
       email: json["email"].toString(),
       password: json["password"].toString(),
       cccd: json["cccd"].toString(),
-      dob: json["dob"].toString(),
-      gender: json["gender"].toString(),
-      address: json["address"].toString(),
-      token: json["token"].toString(),
-        status: json["status"].toString()
     );
   }
   // Chuyển từ Object thành JSON
@@ -69,17 +53,44 @@ class UserModel {
       "email": email,
       "password": password,
       "cccd": cccd,
-      "dob": dob,
-      "gender": gender,
-      "address": address,
-      "status": status ,
-      "token": token,
     };
   }
 
-  static loadUserName() {}
+  void insertdata() {
+    CollectionReference collRef = FirebaseFirestore.instance.collection("account");
+    collRef.add({
+      'name': name,
+      'email': email,
+      'password': password,
+      'cccd': cccd ,
+    });
+  }
 
-  static login(String text, String text2) {}
+  static Future<bool> loginUser(String email, String password) async {
+    try {
+      var collection = FirebaseFirestore.instance.collection('account');
+      var querySnapshot = await collection.where('email', isEqualTo: email).get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        var userData = querySnapshot.docs.first.data(); // Lấy dữ liệu người dùng
+
+        if (userData['password'] == password) {
+          print("Đăng nhập thành công! Dữ liệu người dùng: $userData");
+          return true ;
+        } else {
+          print("Sai mật khẩu!");
+          return false ;
+        }
+      } else {
+        print("Email không tồn tại!");
+        return false ;
+      }
+    } catch (e) {
+      print("Lỗi khi đăng nhập: $e");
+      return false ;
+    }
+  }
+
 
 
 }

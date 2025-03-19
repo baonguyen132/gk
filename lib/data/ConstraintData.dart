@@ -1,5 +1,8 @@
 var mainLightDarkMode = true ;
 
+final location = "https://a830-2405-4802-6ee7-22c0-b51e-f34c-fa01-2c6a.ngrok-free.app" ;
+// final location = "http://localhost:5000" ;
+
 // Hàm chuyển số CCCD thành ngày tháng năm
 String formatIDToDate(String idNumber) {
   if (idNumber.length != 8) return "Invalid"; // Kiểm tra hợp lệ
@@ -10,3 +13,4 @@ String formatIDToDate(String idNumber) {
 
   return "$year-$month-$day"; // Trả về định dạng YYYY-MM-DD
 }
+

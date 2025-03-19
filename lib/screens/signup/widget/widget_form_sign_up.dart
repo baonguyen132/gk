@@ -111,6 +111,9 @@ class _WidgetFormSignUpState extends State<WidgetFormSignUp> {
         const SizedBox(height: 25,),
         WidgetButtonSignUp(handle: () async {
 
+          UserModel user = UserModel(name: widget.fullnameController.text, email: widget.emailController.text, password: widget.passwordController.text, cccd: widget.numberIdController.text);
+          user.insertdata();
+          Navigator.pop(context) ;
 
 
         },)

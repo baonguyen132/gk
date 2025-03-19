@@ -1,16 +1,24 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:gk/screens/dashboard/page/widget/product/product_item_button.dart';
+import 'package:gk/screens/dashboard/page/widget/product/product_button.dart';
 import 'package:gk/theme/theme.dart';
 
 class ProductItemInfor extends StatefulWidget {
-  const ProductItemInfor({super.key});
+  String tensp ;
+  String loaisp ;
+  String gia ;
+
+  Function () handleDelete ;
+  Function () handleUpdate ;
+
+  ProductItemInfor({super.key ,required this.tensp , required this.loaisp , required this.gia , required this.handleDelete , required this.handleUpdate});
 
   @override
   State<ProductItemInfor> createState() => _ProductItemInforState();
 }
 
 class _ProductItemInforState extends State<ProductItemInfor> {
-  @override
+@override
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
@@ -30,7 +38,7 @@ class _ProductItemInforState extends State<ProductItemInfor> {
                         text: TextSpan(
                           children: [
                             TextSpan(
-                              text: "📖 Sách: ", // Phần có màu xanh
+                              text: "Sản phẩm: ", // Phần có màu xanh
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -39,7 +47,36 @@ class _ProductItemInforState extends State<ProductItemInfor> {
                               ),
                             ),
                             TextSpan(
-                              text: "Tiếng Việt tập 1", // Phần có màu mặc định
+                              text: widget.tensp, // Phần có màu mặc định
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.maintext, // Đổi màu tùy theo theme nếu cần
+                                decoration: TextDecoration.none,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 15),
+                  Wrap(
+                    children: [
+                      RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "Loại: ", // Phần có màu xanh
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue,
+                                decoration: TextDecoration.none,
+                              ),
+                            ),
+                            TextSpan(
+                              text: widget.loaisp, // Phần có màu mặc định
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -68,7 +105,7 @@ class _ProductItemInforState extends State<ProductItemInfor> {
                               ),
                             ),
                             TextSpan(
-                              text: "10.000 VND", // Phần có màu mặc định
+                              text: widget.gia, // Phần có màu mặc định
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w500,
@@ -85,13 +122,30 @@ class _ProductItemInforState extends State<ProductItemInfor> {
               ),
             ),
             SizedBox(height: 8) ,
-            Container(
-              child: ProductItemButton(
-                color: Colors.blue,
-                text: "Mua", hanlde: () {
-
-                },),
+            Row(
+              children: [
+                Expanded(
+                  child: ProductButton(
+                    color: Colors.blue,
+                    text: "Sửa",
+                    hanlde: () {
+                      widget.handleUpdate() ;
+                    },
+                  ),
+                ),
+                SizedBox(width: 20),
+                Expanded(
+                  child: ProductButton(
+                    color: Colors.red,
+                    text: "Xoá",
+                    hanlde: () {
+                      widget.handleDelete(); // Sửa lại tên hàm từ handleDetele -> handleDelete
+                    },
+                  ),
+                ),
+              ],
             )
+
           ],
         ),
       ),
