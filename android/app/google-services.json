@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "717963288675",
+    "project_id": "fluttergk-cdd11",
+    "storage_bucket": "fluttergk-cdd11.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:717963288675:android:a29558d8f9f20ada281856",
+        "android_client_info": {
+          "package_name": "com.example.gk"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCa8HmI-aUqQ_qsm7EH9roMvJa_XBf30WY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
