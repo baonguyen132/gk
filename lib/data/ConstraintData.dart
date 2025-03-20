@@ -1,6 +1,6 @@
 var mainLightDarkMode = true ;
 
-final location = "https://a830-2405-4802-6ee7-22c0-b51e-f34c-fa01-2c6a.ngrok-free.app" ;
+final location = "https://steady-sharply-ibex.ngrok-free.app" ;
 // final location = "http://localhost:5000" ;
 
 // Hàm chuyển số CCCD thành ngày tháng năm

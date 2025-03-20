@@ -28,6 +28,9 @@ class _WidgetListProductState extends State<WidgetListProduct> {
   final ImagePicker _picker = ImagePicker();
   String path = "" ;
   File? _image;
+
+  IconData icon = Icons.close ;
+  Color color = Colors.red ;
   
   Future<void> getData() async {
     var collection = FirebaseFirestore.instance.collection('product');
@@ -108,14 +111,23 @@ class _WidgetListProductState extends State<WidgetListProduct> {
                   SizedBox(height: 20,),
                   Row(
                     children: [
-                      Text("Chọn hình ảnh") ,
-                      SizedBox(width: 10,) ,
+                      Text("Chọn ảnh") ,
+                      SizedBox(width: 5,) ,
+
+
+                      Icon(icon, color: color,),
+
+                      SizedBox(width: 5,) ,
                       Expanded(
                           child: WidgetButtonCustom(
                               handle: () {
                                 _pickImage(ImageSource.gallery) ;
+                                setState(() {
+                                  icon = Icons.check ;
+                                  color = Colors.green ;
+                                });
                               },
-                              text: "Chọn ảnh"
+                              text: "Chọn"
                           )
                       )
                     ],

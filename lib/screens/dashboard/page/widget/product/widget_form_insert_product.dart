@@ -24,6 +24,9 @@ class _WidgetFormInsertProductState extends State<WidgetFormInsertProduct> {
   String path = "" ;
   File? _image;
 
+  IconData icon = Icons.close ;
+  Color color = Colors.red ;
+
   TextEditingController tensp = TextEditingController() ;
   TextEditingController loaisp = TextEditingController() ;
   TextEditingController gia = TextEditingController() ;
@@ -65,6 +68,10 @@ class _WidgetFormInsertProductState extends State<WidgetFormInsertProduct> {
       path = "" ;
       _image = File(pickedFile.path);
       path = (await uploadImage(_image!))!;
+      setState(() {
+        icon = Icons.check ;
+        color = Colors.green ;
+      });
     }
   }
 
@@ -82,6 +89,11 @@ class _WidgetFormInsertProductState extends State<WidgetFormInsertProduct> {
         Row(
           children: [
             Text("Chọn hình ảnh") ,
+            SizedBox(width: 10,) ,
+
+
+            Icon(icon, color: color,),
+
             SizedBox(width: 10,) ,
             Expanded(
                 child: WidgetButtonCustom(
@@ -104,6 +116,8 @@ class _WidgetFormInsertProductState extends State<WidgetFormInsertProduct> {
                 loaisp.text = "" ;
                 gia.text = "" ;
                 path = "" ;
+                 icon = Icons.close ;
+                 color = Colors.red ;
               });
 
             },
